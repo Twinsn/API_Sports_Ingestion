@@ -36,11 +36,25 @@ class BaseIngestor(ABC):
 
     def run(self) -> int:
         rows = self.to_rows(self.fetch())
-        if rows:
-            self.upsert(rows)
+        if not rows:
+            return 0
+        rows = self._dedupe(rows)
+        self.upsert(rows)
         return len(rows)
 
+    def _dedupe(self, rows: list[dict]) -> list[dict]:
+        """Postgres refuse qu'un ON CONFLICT touche deux fois la meme ligne dans une
+        seule requete ("CardinalityViolation"). Certains endpoints peuvent renvoyer
+        plusieurs entrees qui retombent sur la meme cle naturelle (observe sur
+        /transfers) -- on ne garde que la derniere occurrence par cle."""
+        deduped: dict[tuple, dict] = {}
+        for row in rows:
+            key = tuple(row[c] for c in self.conflict_columns)
+            deduped[key] = row
+        return list(deduped.values())
+
     def upsert(self, rows: list[dict]) -> None:
+        rows = self._dedupe(rows)  # defense en profondeur si upsert() est appele directement
         stmt = pg_insert(self.table).values(rows)
         update_cols = {
             c.name: stmt.excluded[c.name]

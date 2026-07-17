@@ -49,6 +49,7 @@ class PlayerImportIngestor(BaseIngestor):
             payload = self.fetch(page=page)
             rows = self.to_rows(payload)
             if rows:
+                rows = self._dedupe(rows)
                 self.upsert(rows)
                 total_rows += len(rows)
             paging = payload.get("paging") or {}

@@ -20,6 +20,6 @@ class Transfer(Base):
     player_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     date: Mapped[str] = mapped_column(String(16), primary_key=True)
     team_in_id: Mapped[int] = mapped_column(Integer, primary_key=True, server_default="0")
-    team_out_id: Mapped[int | None] = mapped_column(Integer)
+    team_out_id: Mapped[int] = mapped_column(Integer, primary_key=True, server_default="0")
     type: Mapped[str | None] = mapped_column(String(64))
     raw: Mapped[dict] = mapped_column(JSONB)

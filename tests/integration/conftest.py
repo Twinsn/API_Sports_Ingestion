@@ -8,7 +8,10 @@ from sport_ingestion.db.base import Base
 from sport_ingestion.db.session import build_engine
 
 TEST_DATABASE_URL_ENV_VAR = "TEST_DATABASE_URL"
-DEFAULT_TEST_DATABASE_URL = "postgresql+psycopg://sport_ingestion:sport_ingestion@localhost:5432/sport_ingestion"
+# DB distincte de celle du dev (DATABASE_URL) par defaut: cette fixture TRUNCATE toutes
+# les tables apres chaque test -- pointer ca sur la DB de dev efface les vraies donnees
+# ingerees (verifie a nos depens: `uv run pytest -m ""` a vide la base de dev en session).
+DEFAULT_TEST_DATABASE_URL = "postgresql+psycopg://sport_ingestion:sport_ingestion@localhost:5432/sport_ingestion_test"
 
 
 @pytest.fixture(scope="session")

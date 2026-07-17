@@ -7,9 +7,10 @@ construit par anticipation tant qu'un seul fournisseur (api_sports) existe.
 
 from __future__ import annotations
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.orm import Session
 
+from .models.team import Team
 from .models.team_identity_map import TeamIdentityMap
 
 
@@ -40,7 +41,10 @@ class TeamResolver:
     def link(session: Session, provider: str, sport: str, team_id: int, master_team_id: int) -> None:
         """Rattache explicitement (provider, sport, team_id) a un master_team_id deja
         connu -- utilise une fois qu'on a identifie que 2 sources decrivent la meme
-        equipe reelle (rapprochement manuel ou automatique, hors scope de ce module)."""
+        equipe reelle (rapprochement manuel ou automatique, hors scope de ce module).
+
+        Met aussi a jour `teams.master_team_id` immediatement si la ligne existe deja:
+        sans ca, l'effet n'apparaitrait qu'a la prochaine ingestion de ce provider."""
         existing = session.execute(
             select(TeamIdentityMap).where(
                 TeamIdentityMap.provider == provider,
@@ -54,4 +58,10 @@ class TeamResolver:
             session.add(
                 TeamIdentityMap(provider=provider, sport=sport, team_id=team_id, master_team_id=master_team_id)
             )
+
+        session.execute(
+            update(Team)
+            .where(Team.provider == provider, Team.sport == sport, Team.team_id == team_id)
+            .values(master_team_id=master_team_id)
+        )
         session.flush()

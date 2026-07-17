@@ -92,6 +92,12 @@ uv run pytest                    # unitaires (to_rows, sans DB) -- rapide, par d
 uv run pytest -m integration      # necessite TEST_DATABASE_URL (docker compose up -d)
 ```
 
+⚠️ `TEST_DATABASE_URL` doit pointer sur une base **differente** de `DATABASE_URL` (ex.
+`sport_ingestion_test` vs `sport_ingestion`) : la fixture d'integration fait un
+`TRUNCATE`-like sur toutes les tables apres chaque test. Pointer les deux sur la meme base
+efface les vraies donnees ingerees (arrive en pratique en écrivant ceci — voir
+`.env.example`, `CREATE DATABASE sport_ingestion_test;` une fois avant de lancer les tests).
+
 Les tests unitaires vérifient le mapping `to_rows()` avec des extraits JSON figés
 (`tests/unit/fixtures/`), y compris la variance de forme entre sports (football imbrique
 sous `"fixture"`, basketball est plat — voir `FixtureIngestor`). Les tests d'intégration

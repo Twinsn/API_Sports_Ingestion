@@ -85,3 +85,11 @@ def test_two_providers_ingesting_the_same_real_team_do_not_collide_in_teams_tabl
 
     with session_factory() as session:
         assert TeamResolver.resolve(session, "thesportsdb", "football", 9001) == shared_master
+
+    # link() doit repercuter immediatement sur la ligne `teams` deja ingeree,
+    # sans attendre une nouvelle ingestion de ce provider.
+    with session_factory() as session:
+        updated_master = session.execute(
+            text("select master_team_id from teams where provider='thesportsdb' and team_id=9001")
+        ).scalar_one()
+    assert updated_master == shared_master

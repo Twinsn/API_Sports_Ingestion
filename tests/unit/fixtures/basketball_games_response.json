@@ -1,0 +1,18 @@
+{
+  "response": [
+    {
+      "id": 336745,
+      "date": "2026-07-14T19:00:00+00:00",
+      "status": {"long": "Finished", "short": "FT"},
+      "league": {"id": 12, "name": "NBA", "season": "2025-2026"},
+      "teams": {
+        "home": {"id": 145, "name": "Boston Celtics", "logo": "..."},
+        "away": {"id": 139, "name": "Miami Heat", "logo": "..."}
+      },
+      "scores": {
+        "home": {"total": 102},
+        "away": {"total": 98}
+      }
+    }
+  ]
+}

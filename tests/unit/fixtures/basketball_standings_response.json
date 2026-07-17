@@ -1,0 +1,18 @@
+{
+  "response": [
+    [
+      {
+        "position": 1,
+        "stage": "NBA - Regular Season",
+        "group": {"name": "Western Conference", "points": 0},
+        "team": {"id": 152, "name": "Oklahoma City Thunder", "logo": "..."},
+        "league": {"id": 12, "name": "NBA", "type": "League", "season": "2023-2024", "logo": "..."},
+        "country": {"id": 5, "name": "USA", "code": "US", "flag": "..."},
+        "games": {"played": 82, "win": {"total": 57, "percentage": "0.695"}, "lose": {"total": 25, "percentage": "0.305"}},
+        "points": {"for": 9847, "against": 9239},
+        "form": null,
+        "description": "Promotion - NBA (Play Offs: 1/8-finals)"
+      }
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "response": [
+    {
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "type": "League",
+        "logo": "https://media.api-sports.io/football/leagues/39.png"
+      },
+      "country": {
+        "name": "England",
+        "code": "GB",
+        "flag": "https://media.api-sports.io/flags/gb.svg"
+      },
+      "seasons": [
+        {"year": 2023, "current": false},
+        {"year": 2024, "current": true}
+      ]
+    }
+  ]
+}

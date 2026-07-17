@@ -1,0 +1,44 @@
+{
+  "response": [
+    {
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "season": 2023,
+        "standings": [
+          [
+            {
+              "rank": 1,
+              "team": {"id": 50, "name": "Manchester City", "logo": "https://media.api-sports.io/football/teams/50.png"},
+              "points": 89,
+              "goalsDiff": 61,
+              "group": "Premier League",
+              "form": "WWWWD",
+              "status": "same",
+              "description": "Promotion - Champions League (Group Stage)",
+              "all": {},
+              "home": {},
+              "away": {},
+              "update": "2024-05-19T00:00:00+00:00"
+            },
+            {
+              "rank": 2,
+              "team": {"id": 42, "name": "Arsenal", "logo": "https://media.api-sports.io/football/teams/42.png"},
+              "points": 84,
+              "goalsDiff": 62,
+              "group": "Premier League",
+              "form": "WWWWL",
+              "status": "same",
+              "description": "Promotion - Champions League (Group Stage)",
+              "all": {},
+              "home": {},
+              "away": {},
+              "update": "2024-05-19T00:00:00+00:00"
+            }
+          ]
+        ]
+      }
+    }
+  ]
+}

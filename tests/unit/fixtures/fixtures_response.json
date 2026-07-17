@@ -1,0 +1,27 @@
+{
+  "response": [
+    {
+      "fixture": {
+        "id": 1498633,
+        "referee": "M. Oliver",
+        "timezone": "UTC",
+        "date": "2026-07-14T19:00:00+00:00",
+        "timestamp": 1815678000,
+        "status": {"long": "Match Finished", "short": "FT", "elapsed": 90}
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League",
+        "country": "England",
+        "season": 2026,
+        "round": "Regular Season - 1"
+      },
+      "teams": {
+        "home": {"id": 33, "name": "Manchester United", "logo": "...", "winner": true},
+        "away": {"id": 40, "name": "Liverpool", "logo": "...", "winner": false}
+      },
+      "goals": {"home": 2, "away": 1},
+      "score": {"halftime": {"home": 1, "away": 0}, "fulltime": {"home": 2, "away": 1}}
+    }
+  ]
+}

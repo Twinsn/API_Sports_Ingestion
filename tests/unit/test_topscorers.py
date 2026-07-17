@@ -22,6 +22,7 @@ def test_to_rows_maps_player_and_first_statistics_entry(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "league_id": 39,
             "season": "2023",

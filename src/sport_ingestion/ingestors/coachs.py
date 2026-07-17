@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class CoachIngestor(BaseIngestor):
     table = Coach.__table__
-    conflict_columns = ("sport", "coach_id")
+    conflict_columns = ("provider", "sport", "coach_id")
 
     def fetch(self) -> dict:
         return self.client.coachs(**self.filters)
@@ -17,6 +17,7 @@ class CoachIngestor(BaseIngestor):
             team = item.get("team") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "coach_id": item["id"],
                     "name": item.get("name"),

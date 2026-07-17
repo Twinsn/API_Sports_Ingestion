@@ -7,8 +7,10 @@ class HeadToHeadIngestor(FixtureIngestor):
     """/fixtures/headtohead renvoie la meme forme que /fixtures: on reutilise
     entierement le mapping et la table de FixtureIngestor, seul fetch() change."""
 
-    def __init__(self, client, session_factory, team1: int, team2: int, **filters) -> None:
-        super().__init__(client, session_factory, **filters)
+    def __init__(
+        self, client, session_factory, team1: int, team2: int, *, provider: str = "api_sports", **filters
+    ) -> None:
+        super().__init__(client, session_factory, provider=provider, **filters)
         self.team1 = team1
         self.team2 = team2
 

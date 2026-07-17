@@ -21,6 +21,7 @@ def test_to_rows_handles_single_object_response(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "team_id": 33,
             "league_id": 39,

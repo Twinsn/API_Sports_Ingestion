@@ -8,7 +8,7 @@ class TeamStatisticIngestor(BaseIngestor):
     """/teams/statistics renvoie un objet unique dans "response" (pas une liste)."""
 
     table = TeamStatistic.__table__
-    conflict_columns = ("sport", "team_id", "league_id", "season")
+    conflict_columns = ("provider", "sport", "team_id", "league_id", "season")
 
     def fetch(self) -> dict:
         return self.client.team_statistics(**self.filters)
@@ -28,6 +28,7 @@ class TeamStatisticIngestor(BaseIngestor):
 
         return [
             {
+                "provider": self.provider,
                 "sport": self.sport.value,
                 "team_id": team.get("id"),
                 "league_id": league.get("id"),

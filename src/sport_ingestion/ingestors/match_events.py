@@ -12,7 +12,17 @@ class MatchEventIngestor(BaseIngestor):
     """
 
     table = MatchEvent.__table__
-    conflict_columns = ("sport", "fixture_id", "team_id", "elapsed", "elapsed_extra", "type", "detail", "player_id")
+    conflict_columns = (
+        "provider",
+        "sport",
+        "fixture_id",
+        "team_id",
+        "elapsed",
+        "elapsed_extra",
+        "type",
+        "detail",
+        "player_id",
+    )
 
     def fetch(self) -> dict:
         return self.client.game_events(**self.filters)
@@ -26,6 +36,7 @@ class MatchEventIngestor(BaseIngestor):
             time = item.get("time") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "fixture_id": fixture_id,
                     "team_id": team.get("id"),

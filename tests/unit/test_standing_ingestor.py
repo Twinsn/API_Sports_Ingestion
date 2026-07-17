@@ -47,6 +47,7 @@ def test_to_rows_maps_flat_basketball_shape(load_fixture):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "basketball",
             "league_id": 12,
             "season": "2023-2024",

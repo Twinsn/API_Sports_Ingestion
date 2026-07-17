@@ -16,6 +16,7 @@ class PlayerImport(Base):
 
     __tablename__ = "player_imports"
 
+    provider: Mapped[str] = mapped_column(String(32), primary_key=True, server_default="api_sports")
     sport: Mapped[str] = mapped_column(String(32), primary_key=True)
     player_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     team_id: Mapped[int] = mapped_column(Integer, primary_key=True, server_default="0")

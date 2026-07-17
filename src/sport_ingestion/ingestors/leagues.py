@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class LeagueIngestor(BaseIngestor):
     table = League.__table__
-    conflict_columns = ("sport", "league_id")
+    conflict_columns = ("provider", "sport", "league_id")
 
     def fetch(self) -> dict:
         return self.client.leagues(**self.filters)
@@ -18,6 +18,7 @@ class LeagueIngestor(BaseIngestor):
             country = item.get("country") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "league_id": league["id"],
                     "name": league["name"],

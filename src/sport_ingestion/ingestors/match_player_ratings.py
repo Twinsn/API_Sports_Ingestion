@@ -17,7 +17,7 @@ class MatchPlayerRatingIngestor(BaseIngestor):
     """Necessite le filtre fixture=<id> (l'API ne le renvoie pas dans chaque item)."""
 
     table = MatchPlayerRating.__table__
-    conflict_columns = ("sport", "fixture_id", "team_id", "player_id")
+    conflict_columns = ("provider", "sport", "fixture_id", "team_id", "player_id")
 
     def fetch(self) -> dict:
         return self.client.game_players(**self.filters)
@@ -34,6 +34,7 @@ class MatchPlayerRatingIngestor(BaseIngestor):
                 games = stats_list[0].get("games") or {}
                 rows.append(
                     {
+                        "provider": self.provider,
                         "sport": self.sport.value,
                         "fixture_id": fixture_id,
                         "team_id": team_id,

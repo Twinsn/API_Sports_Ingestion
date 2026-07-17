@@ -13,6 +13,7 @@ def test_to_rows_maps_football_fixture_shape(fake_client, load_fixture):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "fixture_id": 1498633,
             "league_id": 39,
@@ -38,6 +39,7 @@ def test_to_rows_maps_flat_games_shape_eg_basketball(load_fixture):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "basketball",
             "fixture_id": 336745,
             "league_id": 12,

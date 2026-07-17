@@ -16,6 +16,7 @@ class Fixture(Base):
         Index("ix_fixtures_sport_date", "sport", "date"),
     )
 
+    provider: Mapped[str] = mapped_column(String(32), primary_key=True, server_default="api_sports")
     sport: Mapped[str] = mapped_column(String(32), primary_key=True)
     fixture_id: Mapped[int] = mapped_column(Integer, primary_key=True)
 

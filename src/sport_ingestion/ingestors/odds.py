@@ -13,10 +13,12 @@ class OddIngestor(BaseIngestor):
     """
 
     table = Odd.__table__
-    conflict_columns = ("sport", "fixture_id", "bookmaker_id", "is_live")
+    conflict_columns = ("provider", "sport", "fixture_id", "bookmaker_id", "is_live")
 
-    def __init__(self, client, session_factory, *, is_live: bool = False, **filters) -> None:
-        super().__init__(client, session_factory, **filters)
+    def __init__(
+        self, client, session_factory, *, is_live: bool = False, provider: str = "api_sports", **filters
+    ) -> None:
+        super().__init__(client, session_factory, provider=provider, **filters)
         self.is_live = is_live
 
     def fetch(self) -> dict:
@@ -35,6 +37,7 @@ class OddIngestor(BaseIngestor):
                 for bookmaker in bookmakers:
                     rows.append(
                         {
+                            "provider": self.provider,
                             "sport": self.sport.value,
                             "fixture_id": fixture_id,
                             "bookmaker_id": bookmaker.get("id") or 0,
@@ -46,6 +49,7 @@ class OddIngestor(BaseIngestor):
             else:
                 rows.append(
                     {
+                        "provider": self.provider,
                         "sport": self.sport.value,
                         "fixture_id": fixture_id,
                         "bookmaker_id": 0,

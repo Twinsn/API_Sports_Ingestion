@@ -62,6 +62,7 @@ def test_to_rows_maps_nested_statistics():
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "player_id": 909,
             "team_id": 33,

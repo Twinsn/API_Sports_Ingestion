@@ -9,6 +9,7 @@ def test_to_rows_maps_league_fields(fake_client, load_fixture):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "league_id": 39,
             "name": "Premier League",

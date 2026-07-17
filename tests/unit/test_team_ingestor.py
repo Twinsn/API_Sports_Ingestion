@@ -9,6 +9,7 @@ def test_to_rows_maps_team_and_venue_fields(fake_client, load_fixture):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "team_id": 33,
             "name": "Manchester United",

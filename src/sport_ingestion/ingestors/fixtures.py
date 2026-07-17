@@ -22,7 +22,7 @@ class FixtureIngestor(BaseIngestor):
     """
 
     table = Fixture.__table__
-    conflict_columns = ("sport", "fixture_id")
+    conflict_columns = ("provider", "sport", "fixture_id")
 
     def fetch(self) -> dict:
         return self.client.games(**self.filters)
@@ -44,6 +44,7 @@ class FixtureIngestor(BaseIngestor):
 
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "fixture_id": fixture["id"],
                     "league_id": league.get("id"),

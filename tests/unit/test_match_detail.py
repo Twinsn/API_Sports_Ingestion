@@ -18,6 +18,7 @@ def test_lineup_to_rows_reads_fixture_id_from_filters(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "fixture_id": 1498633,
             "team_id": 33,
@@ -38,7 +39,15 @@ def test_match_statistic_to_rows_keeps_stats_in_raw(fake_client):
 
     rows = ingestor.to_rows(payload)
 
-    assert rows == [{"sport": "football", "fixture_id": 1498633, "team_id": 33, "raw": payload["response"][0]}]
+    assert rows == [
+        {
+            "provider": "api_sports",
+            "sport": "football",
+            "fixture_id": 1498633,
+            "team_id": 33,
+            "raw": payload["response"][0],
+        }
+    ]
 
 
 def test_match_player_rating_parses_string_rating(fake_client):

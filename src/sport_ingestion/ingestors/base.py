@@ -10,20 +10,35 @@ from sqlalchemy.orm import Session, sessionmaker
 
 
 class BaseIngestor(ABC):
-    """Fetch une ressource API-Sports pour un sport/jeu de filtres et l'upsert en base.
+    """Fetch une ressource pour un sport/jeu de filtres et l'upsert en base.
 
     Les sous-classes declarent `table` et `conflict_columns` (la cle naturelle,
-    incluant "sport") et implementent `fetch()` + `to_rows()`. `to_rows()` est pure
-    (pas d'I/O), ce qui la rend testable sans base de donnees.
+    incluant "provider" et "sport") et implementent `fetch()` + `to_rows()`.
+    `to_rows()` est pure (pas d'I/O), ce qui la rend testable sans base de donnees.
+
+    `provider` identifie la source de donnees (ex. "api_sports") -- a ne pas
+    confondre avec le `provider` de `SportsClient` (qui choisit entre l'API
+    directe api-sports.io et RapidAPI, un detail de transport interne a la lib).
+    Ici, c'est ce qui permet de brancher demain une 2e source (TheSportsDB, ESPN...)
+    sans collision: deux fournisseurs peuvent tres bien attribuer le meme id
+    numerique a deux entites differentes.
     """
 
     table: Table
     conflict_columns: tuple[str, ...]
 
-    def __init__(self, client: SportsClient, session_factory: sessionmaker[Session], **filters: Any) -> None:
+    def __init__(
+        self,
+        client: SportsClient,
+        session_factory: sessionmaker[Session],
+        *,
+        provider: str = "api_sports",
+        **filters: Any,
+    ) -> None:
         self.client = client
         self.session_factory = session_factory
         self.sport: Sport = client.sport
+        self.provider = provider
         self.filters = filters
 
     @abstractmethod

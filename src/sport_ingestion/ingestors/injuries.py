@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class InjuryIngestor(BaseIngestor):
     table = Injury.__table__
-    conflict_columns = ("sport", "fixture_id", "player_id")
+    conflict_columns = ("provider", "sport", "fixture_id", "player_id")
 
     def fetch(self) -> dict:
         return self.client.injuries(**self.filters)
@@ -19,6 +19,7 @@ class InjuryIngestor(BaseIngestor):
             fixture = item.get("fixture") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "fixture_id": fixture.get("id") or 0,
                     "player_id": player["id"],

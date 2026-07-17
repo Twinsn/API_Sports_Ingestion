@@ -10,6 +10,7 @@ from ..db.base import Base
 class Venue(Base):
     __tablename__ = "venues"
 
+    provider: Mapped[str] = mapped_column(String(32), primary_key=True, server_default="api_sports")
     sport: Mapped[str] = mapped_column(String(32), primary_key=True)
     venue_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str | None] = mapped_column(String(255))

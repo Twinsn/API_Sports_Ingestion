@@ -13,7 +13,7 @@ class PlayerImportIngestor(BaseIngestor):
     """
 
     table = PlayerImport.__table__
-    conflict_columns = ("sport", "player_id", "team_id", "league_id", "season")
+    conflict_columns = ("provider", "sport", "player_id", "team_id", "league_id", "season")
 
     def fetch(self, page: int = 1) -> dict:
         return self.client.players(page=page, **self.filters)
@@ -29,6 +29,7 @@ class PlayerImportIngestor(BaseIngestor):
                 season = league.get("season")
                 rows.append(
                     {
+                        "provider": self.provider,
                         "sport": self.sport.value,
                         "player_id": player["id"],
                         "team_id": team.get("id") or 0,

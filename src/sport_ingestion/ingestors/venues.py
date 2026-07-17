@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class VenueIngestor(BaseIngestor):
     table = Venue.__table__
-    conflict_columns = ("sport", "venue_id")
+    conflict_columns = ("provider", "sport", "venue_id")
 
     def fetch(self) -> dict:
         return self.client.venues(**self.filters)
@@ -16,6 +16,7 @@ class VenueIngestor(BaseIngestor):
         for item in payload.get("response", []):
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "venue_id": item["id"],
                     "name": item.get("name"),

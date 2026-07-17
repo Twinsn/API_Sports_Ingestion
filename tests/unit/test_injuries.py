@@ -20,6 +20,7 @@ def test_to_rows_maps_player_team_fixture(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "fixture_id": 1498633,
             "player_id": 909,

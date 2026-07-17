@@ -20,6 +20,7 @@ def test_to_rows_flattens_transfer_history_per_player(fake_client):
 
     assert len(rows) == 2
     assert rows[0] == {
+        "provider": "api_sports",
         "sport": "football",
         "player_id": 909,
         "date": "2021-07-01",

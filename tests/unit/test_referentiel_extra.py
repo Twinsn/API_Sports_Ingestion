@@ -13,6 +13,7 @@ def test_coach_to_rows(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "coach_id": 1,
             "name": "Pep Guardiola",
@@ -36,6 +37,7 @@ def test_venue_to_rows(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "venue_id": 556,
             "name": "Old Trafford",

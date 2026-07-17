@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from ..identity import TeamResolver
 from ..models.team import Team
 from .base import BaseIngestor
 
 
 class TeamIngestor(BaseIngestor):
     table = Team.__table__
-    conflict_columns = ("sport", "team_id")
+    conflict_columns = ("provider", "sport", "team_id")
 
     def fetch(self) -> dict:
         return self.client.teams(**self.filters)
@@ -18,6 +19,7 @@ class TeamIngestor(BaseIngestor):
             venue = item.get("venue") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "team_id": team["id"],
                     "name": team["name"],
@@ -30,3 +32,11 @@ class TeamIngestor(BaseIngestor):
                 }
             )
         return rows
+
+    def upsert(self, rows: list[dict]) -> None:
+        # Resolution d'identite avant l'upsert bulk: chaque ligne recoit son
+        # master_team_id (nouveau ou deja connu pour ce provider/sport/team_id).
+        with self.session_factory.begin() as session:
+            for row in rows:
+                row["master_team_id"] = TeamResolver.resolve(session, row["provider"], row["sport"], row["team_id"])
+        super().upsert(rows)

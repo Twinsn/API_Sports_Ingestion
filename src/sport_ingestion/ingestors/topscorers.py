@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class TopscorerIngestor(BaseIngestor):
     table = Topscorer.__table__
-    conflict_columns = ("sport", "league_id", "season", "player_id")
+    conflict_columns = ("provider", "sport", "league_id", "season", "player_id")
 
     def fetch(self) -> dict:
         return self.client.topscorers(**self.filters)
@@ -24,6 +24,7 @@ class TopscorerIngestor(BaseIngestor):
 
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "league_id": league.get("id"),
                     "season": str(season) if season is not None else None,

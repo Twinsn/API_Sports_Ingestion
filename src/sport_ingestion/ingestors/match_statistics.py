@@ -8,7 +8,7 @@ class MatchStatisticIngestor(BaseIngestor):
     """Necessite le filtre fixture=<id> (l'API ne le renvoie pas dans chaque item)."""
 
     table = MatchStatistic.__table__
-    conflict_columns = ("sport", "fixture_id", "team_id")
+    conflict_columns = ("provider", "sport", "fixture_id", "team_id")
 
     def fetch(self) -> dict:
         return self.client.game_statistics(**self.filters)
@@ -20,6 +20,7 @@ class MatchStatisticIngestor(BaseIngestor):
             team = item.get("team") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "fixture_id": fixture_id,
                     "team_id": team.get("id"),

@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class PlayerSquadIngestor(BaseIngestor):
     table = PlayerSquad.__table__
-    conflict_columns = ("sport", "team_id", "player_id")
+    conflict_columns = ("provider", "sport", "team_id", "player_id")
 
     def fetch(self) -> dict:
         return self.client.players_squads(**self.filters)
@@ -19,6 +19,7 @@ class PlayerSquadIngestor(BaseIngestor):
             for player in item.get("players", []):
                 rows.append(
                     {
+                        "provider": self.provider,
                         "sport": self.sport.value,
                         "team_id": team_id,
                         "player_id": player["id"],

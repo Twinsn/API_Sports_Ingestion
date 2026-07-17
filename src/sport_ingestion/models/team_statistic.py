@@ -16,6 +16,7 @@ class TeamStatistic(Base):
 
     __tablename__ = "team_statistics"
 
+    provider: Mapped[str] = mapped_column(String(32), primary_key=True, server_default="api_sports")
     sport: Mapped[str] = mapped_column(String(32), primary_key=True)
     team_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     league_id: Mapped[int] = mapped_column(Integer, primary_key=True)

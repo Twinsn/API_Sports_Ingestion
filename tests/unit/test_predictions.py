@@ -18,6 +18,7 @@ def test_to_rows_reads_fixture_id_from_filters(fake_client):
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "fixture_id": 1498633,
             "winner_team_id": 33,

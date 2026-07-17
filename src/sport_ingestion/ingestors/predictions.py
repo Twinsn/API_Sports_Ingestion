@@ -8,7 +8,7 @@ class PredictionIngestor(BaseIngestor):
     """Necessite le filtre fixture=<id> (l'API ne le renvoie pas dans l'item)."""
 
     table = Prediction.__table__
-    conflict_columns = ("sport", "fixture_id")
+    conflict_columns = ("provider", "sport", "fixture_id")
 
     def fetch(self) -> dict:
         return self.client.predictions(**self.filters)
@@ -21,6 +21,7 @@ class PredictionIngestor(BaseIngestor):
             winner = predictions.get("winner") or {}
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "fixture_id": fixture_id,
                     "winner_team_id": winner.get("id"),

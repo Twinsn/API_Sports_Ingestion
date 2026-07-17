@@ -6,7 +6,7 @@ from .base import BaseIngestor
 
 class StandingIngestor(BaseIngestor):
     table = Standing.__table__
-    conflict_columns = ("sport", "league_id", "season", "team_id", "group_name")
+    conflict_columns = ("provider", "sport", "league_id", "season", "team_id", "group_name")
 
     def fetch(self) -> dict:
         return self.client.standings(**self.filters)
@@ -47,6 +47,7 @@ class StandingIngestor(BaseIngestor):
 
             rows.append(
                 {
+                    "provider": self.provider,
                     "sport": self.sport.value,
                     "league_id": league.get("id"),
                     "season": str(season) if season is not None else None,

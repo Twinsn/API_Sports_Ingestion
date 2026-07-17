@@ -16,6 +16,7 @@ class Transfer(Base):
 
     __tablename__ = "transfers"
 
+    provider: Mapped[str] = mapped_column(String(32), primary_key=True, server_default="api_sports")
     sport: Mapped[str] = mapped_column(String(32), primary_key=True)
     player_id: Mapped[int] = mapped_column(Integer, primary_key=True)
     date: Mapped[str] = mapped_column(String(16), primary_key=True)

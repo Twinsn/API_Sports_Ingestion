@@ -19,6 +19,7 @@ def test_prematch_odds_one_row_per_bookmaker(fake_client):
 
     assert len(rows) == 2
     assert rows[0] == {
+        "provider": "api_sports",
         "sport": "football",
         "fixture_id": 1498633,
         "bookmaker_id": 6,
@@ -37,6 +38,7 @@ def test_live_odds_without_bookmaker_breakdown_falls_back_to_sentinel(fake_clien
 
     assert rows == [
         {
+            "provider": "api_sports",
             "sport": "football",
             "fixture_id": 1498633,
             "bookmaker_id": 0,
